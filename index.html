@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Danrley de Freitas Coelho · Plataforma de Marca</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:         #080807;
+  --surface:    #0F0F0E;
+  --surface2:   #161615;
+  --surface3:   #1E1E1C;
+  --gold:       #BFA06A;
+  --gold-rgb:   191,160,106;
+  --gold-light: #D4B88A;
+  --cream:      #EAE2D4;
+  --cream-dim:  rgba(234,226,212,0.52);
+  --cream-faint:rgba(234,226,212,0.22);
+  --border:     rgba(234,226,212,0.07);
+  --border-mid: rgba(234,226,212,0.13);
+  --border-gold:rgba(191,160,106,0.22);
+
+  --display: 'Cormorant Garamond', Georgia, serif;
+  --sans:    'Inter', system-ui, sans-serif;
+
+  --hero-size: clamp(4rem, 9.5vw, 9rem);
+  --h2-size:   clamp(2.4rem, 5vw, 4.5rem);
+  --h3-size:   clamp(1.4rem, 2.5vw, 2rem);
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-io: cubic-bezier(0.87, 0, 0.13, 1);
+
+  --maxw: 1220px;
+  --narrow: 760px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--cream);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+h1,h2,h3,h4 { font-family: var(--display); line-height: 1.06; }
+a { color: inherit; text-decoration: none; }
+
+/* ── REVEAL SYSTEM ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(48px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+  will-change: transform, opacity;
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal-left  { opacity:0; transform: translateX(-56px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+.reveal-left.in  { opacity:1; transform: translateX(0); }
+.reveal-right { opacity:0; transform: translateX(56px);  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+.reveal-right.in { opacity:1; transform: translateX(0); }
+.reveal-scale { opacity:0; transform: scale(0.88); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+.reveal-scale.in { opacity:1; transform: scale(1); }
+.d1 { transition-delay: 0.08s; }
+.d2 { transition-delay: 0.18s; }
+.d3 { transition-delay: 0.28s; }
+.d4 { transition-delay: 0.38s; }
+.d5 { transition-delay: 0.50s; }
+.d6 { transition-delay: 0.62s; }
+
+/* ── CANVAS BACKGROUND ── */
+#particles-canvas {
+  position: fixed; inset: 0; z-index: 0;
+  pointer-events: none; opacity: 0.55;
+}
+
+/* ── LAYOUT ── */
+.wrap  { max-width: var(--maxw);  margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
+.wrap--n { max-width: var(--narrow); margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
+.section { padding: 8rem 0; position: relative; }
+.section--sm { padding: 5rem 0; }
+hr.div { border: none; border-top: 1px solid var(--border); margin: 0; position: relative; z-index: 1; }
+
+/* ── NAV ── */
+.nav {
+  position: fixed; top: 0; inset-inline: 0; z-index: 200;
+  padding: 1.35rem 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background 0.35s var(--ease), backdrop-filter 0.35s;
+}
+.nav.scrolled {
+  background: rgba(8,8,7,0.9);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+}
+.nav__logo {
+  font-family: var(--display);
+  font-size: 1.35rem; font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--gold);
+}
+.nav__links { display: flex; gap: 2.5rem; list-style: none; }
+.nav__links a {
+  font-size: 0.8rem; font-weight: 400; letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  transition: color 0.25s;
+}
+.nav__links a:hover { color: var(--cream); }
+.nav__burger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+.nav__burger span { display:block; width:22px; height:1.5px; background:var(--cream-dim); transition:all 0.3s; }
+@media(max-width:767px){
+  .nav__burger { display:flex; }
+  .nav__links { display:none; position:fixed; top:0; right:0; bottom:0; width:72vw; max-width:300px; background:var(--surface); flex-direction:column; gap:0; padding:5.5rem 2rem 2rem; border-left:1px solid var(--border); z-index:300; }
+  .nav__links.open { display:flex; }
+  .nav__links a { font-size:0.95rem; padding:1rem 0; border-bottom:1px solid var(--border); text-transform:none; letter-spacing:0; }
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding-bottom: 7rem;
+  position: relative; overflow: hidden;
+}
+.hero__orb {
+  position: absolute; border-radius: 50%; pointer-events: none;
+  filter: blur(100px);
+}
+.hero__orb1 {
+  width: 800px; height: 800px; top: -200px; right: -200px;
+  background: radial-gradient(circle, rgba(var(--gold-rgb),0.22) 0%, transparent 65%);
+  animation: orbFloat 12s ease-in-out infinite alternate;
+}
+.hero__orb2 {
+  width: 500px; height: 500px; bottom: -100px; left: -100px;
+  background: radial-gradient(circle, rgba(var(--gold-rgb),0.1) 0%, transparent 65%);
+  animation: orbFloat 16s ease-in-out infinite alternate-reverse;
+}
+@keyframes orbFloat {
+  from { transform: translate(0,0) scale(1); }
+  to   { transform: translate(30px, 30px) scale(1.06); }
+}
+.hero__line {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: 1px; background: linear-gradient(90deg, transparent, var(--gold) 30%, transparent 70%);
+  opacity: 0.25;
+}
+.hero__eyebrow {
+  display: inline-flex; align-items: center; gap: 0.75rem;
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 2rem;
+}
+.hero__eyebrow::before, .hero__eyebrow::after {
+  content: ''; display: block; width: 24px; height: 1px; background: var(--gold); opacity: 0.5;
+}
+.hero__name {
+  font-size: var(--hero-size);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+  color: var(--cream);
+  margin-bottom: 2.5rem;
+}
+.hero__name em {
+  font-style: italic; font-weight: 600;
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero__sub {
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  font-weight: 300;
+  color: var(--cream-dim);
+  max-width: 560px; line-height: 1.7;
+  margin-bottom: 3rem;
+}
+.hero__essence {
+  font-family: var(--display);
+  font-size: clamp(1.4rem, 2.8vw, 2rem);
+  font-style: italic; font-weight: 300;
+  color: var(--gold-light);
+  position: relative; display: inline-block;
+  padding-bottom: 0.6rem;
+}
+.hero__essence::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:1px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+.hero__scroll {
+  position: absolute; right: 2.5rem; bottom: 2.5rem;
+  display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+  opacity: 0.35;
+}
+.hero__scroll span { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cream-dim); writing-mode: vertical-rl; }
+.hero__scroll::after {
+  content:''; width:1px; height:50px;
+  background: linear-gradient(180deg, var(--gold), transparent);
+  animation: scrollPulse 2.2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%,100% { opacity:0.4; transform:scaleY(0.6); }
+  50% { opacity:1; transform:scaleY(1); }
+}
+
+/* ── SOCIAL MEDIA STYLES ── */
+.sm-platform {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: 2rem;
+  transition: border-color 0.3s;
+}
+.sm-platform:hover { border-color: var(--border-gold); }
+.sm-header {
+  display: flex; align-items: center; gap: 1.5rem;
+  padding: 2.5rem 3rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface2);
+}
+.sm-icon {
+  width: 52px; height: 52px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; flex-shrink: 0;
+}
+.sm-icon--ig { background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); }
+.sm-icon--yt { background: #FF0000; }
+.sm-header__info {}
+.sm-header__name { font-family: var(--display); font-size: 1.5rem; font-weight: 600; color: var(--cream); letter-spacing: -0.02em; }
+.sm-header__role { font-size: 0.8rem; font-weight: 300; color: var(--cream-dim); margin-top: 0.15rem; }
+.sm-meta {
+  display: flex; gap: 2rem; margin-left: auto;
+  flex-wrap: wrap;
+}
+.sm-stat { text-align: center; }
+.sm-stat__n { font-family: var(--display); font-size: 1.5rem; font-weight: 600; font-style: italic; color: var(--gold); display: block; }
+.sm-stat__l { font-size: 0.7rem; font-weight: 300; color: var(--cream-dim); letter-spacing: 0.06em; }
+.sm-body { padding: 3rem; }
+.sm-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2.5rem; }
+.sm-pillar {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem;
+  transition: border-color 0.3s, transform 0.5s var(--ease);
+}
+.sm-pillar:hover { border-color: var(--border-gold); transform: translateY(-4px); }
+.sm-pillar__icon { font-size: 1.4rem; margin-bottom: 0.85rem; }
+.sm-pillar__name { font-family: var(--display); font-size: 1rem; font-weight: 600; color: var(--cream); margin-bottom: 0.4rem; }
+.sm-pillar__desc { font-size: 0.8rem; font-weight: 300; color: var(--cream-dim); line-height: 1.7; }
+.sm-formats { margin-bottom: 2.5rem; }
+.sm-formats__label { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; display: block; }
+.sm-format-list { display: flex; flex-direction: column; gap: 0.75rem; }
+.sm-format {
+  display: flex; gap: 1.5rem; align-items: flex-start;
+  padding: 1.25rem 1.5rem;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: border-color 0.25s;
+}
+.sm-format:hover { border-color: var(--border-gold); }
+.sm-format__type { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); flex-shrink: 0; padding-top: 0.1rem; min-width: 80px; }
+.sm-format__title { font-weight: 500; color: var(--cream); font-size: 0.9rem; margin-bottom: 0.25rem; }
+.sm-format__desc { font-size: 0.82rem; font-weight: 300; color: var(--cream-dim); line-height: 1.65; }
+.sm-freq {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+}
+.sm-freq__item {
+  flex: 1; min-width: 160px;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.25rem;
+  text-align: center;
+}
+.sm-freq__n { font-family: var(--display); font-size: 2.2rem; font-weight: 600; font-style: italic; color: var(--gold); display: block; line-height: 1; }
+.sm-freq__l { font-size: 0.75rem; font-weight: 300; color: var(--cream-dim); margin-top: 0.35rem; }
+
+/* CONTENT STRATEGY CALENDAR */
+.cal-grid {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  gap: 3px; margin-top: 3rem;
+  background: var(--border); border-radius: 16px; overflow: hidden;
+}
+.cal-header {
+  background: var(--surface2);
+  padding: 0.75rem 0.5rem;
+  text-align: center;
+  font-size: 0.68rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold);
+}
+.cal-cell {
+  background: var(--surface);
+  padding: 1rem 0.75rem; min-height: 90px;
+  position: relative; cursor: default;
+  transition: background 0.2s;
+}
+.cal-cell:hover { background: var(--surface2); }
+.cal-cell--empty { background: var(--bg); opacity: 0.4; }
+.cal-cell__day { font-size: 0.65rem; font-weight: 500; color: var(--cream-faint); margin-bottom: 0.5rem; }
+.cal-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; margin-bottom: 0.35rem; }
+.cal-cell__type { font-size: 0.7rem; font-weight: 500; color: var(--cream-dim); line-height: 1.4; }
+.cal-legend { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.25rem; }
+.cal-leg { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; font-weight: 300; color: var(--cream-dim); }
+
+/* CONTENT PILLARS STRATEGY */
+.pillar-strategy { display: flex; flex-direction: column; gap: 1.5px; background: var(--border); border-radius: 20px; overflow: hidden; margin-top: 3rem; }
+.ps-row {
+  display: grid; grid-template-columns: 180px 1fr 1fr;
+  background: var(--surface);
+  transition: background 0.25s;
+}
+.ps-row:hover { background: var(--surface2); }
+.ps-row--header { background: var(--surface2); }
+.ps-cell { padding: 1.5rem 1.75rem; border-right: 1px solid var(--border); }
+.ps-cell:last-child { border-right: none; }
+.ps-cell--h { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
+.ps-pillar-name { font-family: var(--display); font-size: 1rem; font-weight: 600; font-style: italic; color: var(--gold-light); }
+.ps-text { font-size: 0.82rem; font-weight: 300; color: var(--cream-dim); line-height: 1.7; }
+.ps-hook { font-size: 0.82rem; font-weight: 400; color: var(--cream); line-height: 1.7; font-style: italic; }
+@media(max-width:768px){ .ps-row { grid-template-columns: 1fr; } .ps-cell { border-right:none; border-bottom: 1px solid var(--border); } }
+
+/* HOOK SWIPER */
+.hooks-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 3rem; }
+.hook-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; padding: 2rem;
+  transition: border-color 0.3s, transform 0.6s var(--ease);
+}
+.hook-card:hover { border-color: var(--border-gold); transform: translateY(-4px); }
+.hook-card__platform { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: block; }
+.hook-card__text { font-family: var(--display); font-size: 1.05rem; font-weight: 400; color: var(--cream); line-height: 1.6; font-style: italic; }
+@media(max-width:600px){ .hooks-grid { grid-template-columns: 1fr; } .sm-pillars { grid-template-columns: 1fr; } .sm-meta { display:none; } }
+@media(max-width:900px){ .sm-pillars { grid-template-columns: 1fr 1fr; } }
+
+
+/* ── CEREBRO PHRASE ── */
+.cerebro-banner {
+  padding: 5rem 0;
+  text-align: center;
+  position: relative; overflow: hidden;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 50%, var(--bg) 100%);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.cerebro-banner::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(191,160,106,0.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+.cerebro-banner__label {
+  font-size: 0.68rem; font-weight: 500; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--gold);
+  display: block; margin-bottom: 2rem; opacity: 0.7;
+}
+.cerebro-banner__phrase {
+  font-family: var(--display);
+  font-size: clamp(1.6rem, 4vw, 3.2rem);
+  font-weight: 300; font-style: italic;
+  color: var(--cream);
+  line-height: 1.25; letter-spacing: -0.025em;
+  position: relative; z-index: 1;
+  max-width: 820px; margin: 0 auto;
+}
+.cerebro-banner__phrase em {
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.cerebro-banner__attr {
+  display: block; margin-top: 1.5rem;
+  font-size: 0.78rem; font-weight: 300; color: var(--cream-faint);
+  letter-spacing: 0.06em;
+}
+
+/* ── HERO CEREBRO LINE ── */
+.hero__cerebro {
+  display: block;
+  font-family: var(--display);
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  font-style: italic; font-weight: 300;
+  color: var(--cream-faint);
+  margin-top: 1.5rem;
+  letter-spacing: 0.01em;
+}
+.hero__cerebro em { color: rgba(191,160,106,0.6); font-weight: 400; }
+
+/* ── SECTION TAG ── */
+.stag {
+  font-size: 0.7rem; font-weight: 500; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--gold);
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+.stag::before { content:''; width:20px; height:1px; background:var(--gold); opacity:0.6; }
+
+/* ── SECTION TITLE ── */
+.stitle {
+  font-size: var(--h2-size);
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--cream);
+}
+.stitle em { font-style: italic; font-weight: 600; color: var(--gold-light); }
+.sbody {
+  font-size: 1rem; font-weight: 300;
+  color: var(--cream-dim);
+  max-width: 660px; margin-top: 1.25rem; line-height: 1.85;
+}
+
+/* ── VMV ── */
+.vmv {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5px; background: var(--border);
+  border-radius: 20px; overflow: hidden;
+  margin-top: 4rem;
+}
+.vmv__cell {
+  background: var(--surface);
+  padding: 3.5rem 2.5rem;
+  transition: background 0.3s;
+  position: relative; overflow: hidden;
+}
+.vmv__cell::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  opacity: 0; transition: opacity 0.3s;
+}
+.vmv__cell:hover { background: var(--surface2); }
+.vmv__cell:hover::before { opacity: 1; }
+.vmv__tag { font-size:0.68rem; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); display:block; margin-bottom:1.5rem; }
+.vmv__title { font-family:var(--display); font-size:1.5rem; font-weight:600; color:var(--cream); letter-spacing:-0.02em; line-height:1.3; margin-bottom:1.25rem; }
+.vmv__body { font-size:0.9rem; font-weight:300; color:var(--cream-dim); line-height:1.85; }
+@media(max-width:767px){ .vmv { grid-template-columns:1fr; } }
+
+/* ── BRAND IDEA PULLQUOTE ── */
+.pull {
+  padding: 6rem 0;
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%);
+  position: relative;
+}
+.pull__inner {
+  display: flex; gap: 2.5rem; align-items: flex-start;
+  max-width: var(--narrow); margin: 0 auto; padding: 0 2rem;
+}
+.pull__bar { width:3px; flex-shrink:0; background:var(--gold); border-radius:2px; align-self:stretch; }
+.pull__text {
+  font-family: var(--display);
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  font-weight: 400; font-style: italic;
+  color: var(--cream); line-height: 1.55; letter-spacing:-0.015em;
+}
+
+/* ── POSITIONING STATEMENT ── */
+.pos-stmt {
+  margin-top: 3.5rem;
+  padding: 3rem;
+  background: var(--surface);
+  border: 1px solid var(--border-mid);
+  border-radius: 20px;
+  position: relative; overflow: hidden;
+}
+.pos-stmt::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(ellipse at 15% 50%, rgba(var(--gold-rgb),0.05), transparent 60%);
+  pointer-events:none;
+}
+.pos-stmt__for { font-size:0.68rem; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); display:block; margin-bottom:1.25rem; }
+.pos-stmt__text { font-family:var(--display); font-size:clamp(1.1rem, 2vw, 1.55rem); font-weight:300; line-height:1.7; color:var(--cream); letter-spacing:-0.01em; }
+.pos-stmt__text strong { font-weight:600; color:var(--gold-light); }
+
+/* ── MAP CONTAINER ── */
+.map-box {
+  margin-top: 3.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2.5rem;
+  overflow: hidden;
+}
+.map-box__label { font-size:0.68rem; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--cream-faint); text-align:center; margin-bottom:1.5rem; }
+
+/* ── 6Cs ── */
+.sixc {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1.5px; background: var(--border);
+  border-radius: 20px; overflow: hidden;
+  margin-top: 4rem;
+}
+.sixc__cell {
+  background: var(--surface); padding: 2.75rem 2.25rem;
+  position: relative; overflow: hidden;
+  transition: background 0.3s;
+}
+.sixc__cell:hover { background: var(--surface2); }
+.sixc__ghost {
+  position: absolute; bottom: -0.5rem; right: 0.5rem;
+  font-family: var(--display); font-size: 7rem; font-weight: 700; font-style: italic;
+  color: rgba(var(--gold-rgb),0.055); line-height: 1; pointer-events:none; user-select:none;
+}
+.sixc__tag { font-size:0.68rem; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); display:block; margin-bottom:0.75rem; }
+.sixc__title { font-family:var(--display); font-size:1.35rem; font-weight:600; color:var(--cream); letter-spacing:-0.02em; margin-bottom:0.85rem; }
+.sixc__body { font-size:0.875rem; font-weight:300; color:var(--cream-dim); line-height:1.85; }
+@media(max-width:900px){ .sixc { grid-template-columns:1fr 1fr; } }
+@media(max-width:540px){ .sixc { grid-template-columns:1fr; } }
+
+/* ── VALUES ── */
+.vals { margin-top: 4rem; display:flex; flex-direction:column; gap:1.5px; background:var(--border); border-radius:20px; overflow:hidden; }
+.val {
+  display: grid; grid-template-columns: 220px 1fr;
+  background: var(--surface); padding: 2.5rem 3rem;
+  transition: background 0.3s;
+  position: relative;
+}
+.val::after { content:''; position:absolute; left:0; top:0; bottom:0; width:2px; background:var(--border); transition:background 0.3s; }
+.val:hover { background: var(--surface2); }
+.val:hover::after { background: var(--gold); }
+.val__verb { font-family:var(--display); font-size:1.35rem; font-weight:600; font-style:italic; color:var(--gold); letter-spacing:-0.02em; padding-top:0.2rem; }
+.val__body { font-size:0.9rem; font-weight:300; color:var(--cream-dim); line-height:1.85; }
+.val__body strong { color:var(--cream); font-weight:500; }
+@media(max-width:640px){ .val { grid-template-columns:1fr; padding:2rem; gap:0.5rem; } }
+
+/* ── ARCHETYPE ── */
+.arch { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-top:4rem; }
+.arch__card {
+  background:var(--surface); border:1px solid var(--border); border-radius:20px;
+  padding:3rem; position:relative; overflow:hidden;
+  transition:border-color 0.3s, transform 0.7s var(--ease), box-shadow 0.7s var(--ease);
+}
+.arch__card:hover { transform:translateY(-8px); box-shadow:0 32px 80px rgba(0,0,0,0.4); border-color:var(--border-gold); }
+.arch__card--p { border-color: var(--border-gold); }
+.arch__badge { font-size:0.68rem; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); display:block; margin-bottom:1.75rem; }
+.arch__name { font-family:var(--display); font-size:clamp(2rem,4vw,3rem); font-weight:600; font-style:italic; color:var(--cream); letter-spacing:-0.03em; margin-bottom:1.25rem; }
+.arch__body { font-size:0.9rem; font-weight:300; color:var(--cream-dim); line-height:1.85; }
+.arch__ghost { position:absolute; bottom:-1rem; right:0; font-family:var(--display); font-size:9rem; font-weight:700; font-style:italic; color:rgba(var(--gold-rgb),0.04); line-height:1; pointer-events:none; user-select:none; }
+@media(max-width:600px){ .arch { grid-template-columns:1fr; } }
+
+/* ── RTBs ── */
+.rtbs { display:flex; flex-direction:column; gap:1rem; margin-top:4rem; }
+.rtb {
+  display:flex; gap:2rem; align-items:flex-start;
+  padding:2.25rem 2.5rem;
+  background:var(--surface); border:1px solid var(--border); border-radius:16px;
+  transition:border-color 0.3s, background 0.3s;
+}
+.rtb:hover { border-color:var(--border-gold); background:var(--surface2); }
+.rtb__n { font-family:var(--display); font-size:3rem; font-weight:300; font-style:italic; color:rgba(var(--gold-rgb),0.2); line-height:1; flex-shrink:0; width:3.5rem; padding-top:0.25rem; }
+.rtb__title { font-family:var(--display); font-size:1.2rem; font-weight:600; color:var(--gold-light); margin-bottom:0.5rem; }
+.rtb__body { font-size:0.9rem; font-weight:300; color:var(--cream-dim); line-height:1.85; }
+
+/* ── AUDIENCE ── */
+.aud { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:4rem; }
+.aud__card {
+  background:var(--surface); border:1px solid var(--border); border-radius:20px;
+  padding:2.5rem; transition:border-color 0.3s, transform 0.7s var(--ease), box-shadow 0.7s var(--ease);
+}
+.aud__card:hover { transform:translateY(-6px); box-shadow:0 24px 60px rgba(0,0,0,0.35); border-color:var(--border-gold); }
+.aud__n { font-family:var(--display); font-size:4rem; font-weight:300; font-style:italic; color:rgba(var(--gold-rgb),0.13); line-height:1; margin-bottom:1.25rem; }
+.aud__title { font-family:var(--display); font-size:1.2rem; font-weight:600; color:var(--cream); letter-spacing:-0.02em; margin-bottom:0.75rem; }
+.aud__dor { font-size:0.68rem; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-bottom:0.5rem; }
+.aud__body { font-size:0.875rem; font-weight:300; color:var(--cream-dim); line-height:1.85; }
+@media(max-width:900px){ .aud { grid-template-columns:1fr 1fr; } }
+@media(max-width:540px){ .aud { grid-template-columns:1fr; } }
+
+/* ── VOICE ── */
+.voice-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:4rem; }
+.vspec { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:2rem; }
+.vspec__lbl { display:flex; justify-content:space-between; margin-bottom:1rem; }
+.vspec__a, .vspec__b { font-size:0.8rem; font-weight:300; color:var(--cream-dim); }
+.vspec__track { height:3px; background:var(--border); border-radius:2px; margin-bottom:0.85rem; position:relative; }
+.vspec__fill { position:absolute; inset-block:0; left:0; background:linear-gradient(90deg, var(--gold), var(--gold-light)); border-radius:2px; transition:width 1.2s var(--ease); }
+.vspec__fill[data-w]{ width: 0%; }
+.vspec__fill.animate{ width: var(--tw); }
+.vspec__desc { font-size:0.8rem; font-weight:300; color:var(--cream-faint); }
+.vnever { grid-column:1/-1; background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:2rem; margin-top:0; }
+.vnever__tag { font-size:0.68rem; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:rgba(210,70,70,0.75); display:block; margin-bottom:1rem; }
+.vnever__pills { display:flex; flex-wrap:wrap; gap:0.6rem; list-style:none; }
+.vnever__pills li { font-size:0.8rem; color:var(--cream-dim); background:rgba(210,70,70,0.05); border:1px solid rgba(210,70,70,0.14); padding:0.3rem 0.8rem; border-radius:100px; font-weight:300; }
+@media(max-width:600px){ .voice-grid { grid-template-columns:1fr; } }
+
+/* ── TOUCHPOINTS DIAGRAM ── */
+.tp-section { background:var(--surface); padding:6rem 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+
+/* ── ROADMAP ── */
+.roadmap { margin-top:4rem; }
+.rm-phase { display:grid; grid-template-columns:140px 1fr; gap:3rem; padding:3rem 0; border-bottom:1px solid var(--border); align-items:start; }
+.rm-phase:last-child { border-bottom:none; }
+.rm-phase__left {}
+.rm-phase__period { font-size:0.68rem; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); display:block; margin-bottom:0.35rem; }
+.rm-phase__label { font-family:var(--display); font-size:1.2rem; font-weight:600; color:var(--cream); font-style:italic; }
+.rm-phase__title { font-family:var(--display); font-size:1.45rem; font-weight:600; color:var(--cream); margin-bottom:1rem; letter-spacing:-0.02em; }
+.rm-phase__body { font-size:0.875rem; font-weight:300; color:var(--cream-dim); line-height:1.85; margin-bottom:1.25rem; }
+.rm-phase__kpis { display:flex; flex-wrap:wrap; gap:0.6rem; }
+.rm-kpi { font-size:0.75rem; color:var(--gold); background:rgba(var(--gold-rgb),0.07); border:1px solid rgba(var(--gold-rgb),0.18); padding:0.3rem 0.8rem; border-radius:100px; font-weight:400; }
+@media(max-width:600px){ .rm-phase { grid-template-columns:1fr; gap:1rem; } }
+
+/* ── MANIFESTO ── */
+.manifesto-section {
+  background: var(--surface);
+  padding: 8rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+.manifesto-section::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background: radial-gradient(ellipse at 50% 0%, rgba(var(--gold-rgb),0.05), transparent 55%);
+}
+.manifesto-text { font-family:var(--display); font-size:clamp(1.1rem,2.2vw,1.55rem); font-weight:300; line-height:1.75; color:var(--cream); }
+.manifesto-text p { margin-bottom:1.75rem; }
+.manifesto-text p:last-child { margin-bottom:0; }
+.manifesto-text strong { font-weight:600; color:var(--gold-light); }
+
+/* ── ARCHITECTURE ── */
+.arch-house {
+  margin-top:4rem; background:var(--surface); border:1px solid var(--border);
+  border-radius:20px; padding:3.5rem; text-align:center;
+}
+.arch-house__name { font-family:var(--display); font-size:3rem; font-weight:600; font-style:italic; color:var(--gold); letter-spacing:-0.03em; margin-bottom:0.5rem; }
+.arch-house__sub { font-size:0.85rem; font-weight:300; color:var(--cream-dim); margin-bottom:2.5rem; }
+.arch-spokes { display:flex; justify-content:center; gap:0.75rem; flex-wrap:wrap; }
+.arch-spoke { padding:0.5rem 1.25rem; border:1px solid rgba(var(--gold-rgb),0.2); border-radius:100px; font-size:0.85rem; font-weight:300; color:var(--cream-dim); transition:border-color 0.25s, color 0.25s; }
+.arch-spoke:hover { border-color:var(--gold); color:var(--gold); }
+
+/* ── MOAT ── */
+.moat { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:4rem; }
+.moat__card {
+  background:var(--surface); border:1px solid var(--border); border-radius:20px;
+  padding:3rem; position:relative; overflow:hidden;
+  transition:border-color 0.3s, transform 0.7s var(--ease), box-shadow 0.7s var(--ease);
+}
+.moat__card:hover { transform:translateY(-6px); box-shadow:0 24px 60px rgba(0,0,0,0.35); border-color:var(--border-gold); }
+.moat__icon { font-family:var(--display); font-size:5rem; font-weight:700; font-style:italic; color:rgba(var(--gold-rgb),0.08); line-height:1; margin-bottom:1.25rem; }
+.moat__title { font-family:var(--display); font-size:1.25rem; font-weight:600; color:var(--gold-light); margin-bottom:0.85rem; }
+.moat__body { font-size:0.875rem; font-weight:300; color:var(--cream-dim); line-height:1.85; }
+@media(max-width:600px){ .moat { grid-template-columns:1fr; } }
+
+/* ── ESSENCE FINALE ── */
+.finale {
+  text-align:center; padding:12rem 0;
+  position:relative; overflow:hidden;
+}
+.finale::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(ellipse at 50% 60%, rgba(var(--gold-rgb),0.09), transparent 60%);
+}
+.finale__tag { font-size:0.68rem; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold); display:block; margin-bottom:2.5rem; }
+.finale__text {
+  font-family:var(--display);
+  font-size: clamp(4rem, 10vw, 9rem);
+  font-weight:300; font-style:italic;
+  color:var(--cream); letter-spacing:-0.04em; line-height:0.92;
+  position:relative; z-index:1;
+}
+.finale__text em { font-weight:600; color:var(--gold-light); }
+
+/* ── FOOTER ── */
+.footer { padding:3.5rem 0; border-top:1px solid var(--border); }
+.footer__inner { display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap; }
+.footer__studio { font-family:var(--display); font-size:0.9rem; font-style:italic; font-weight:600; color:var(--cream-faint); }
+.footer__copy { font-size:0.75rem; font-weight:300; color:var(--cream-faint); letter-spacing:0.04em; }
+
+/* ── NUMBER COUNTER ── */
+.stat-row { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5px; background:var(--border); border-radius:20px; overflow:hidden; margin-top:4rem; }
+.stat-cell { background:var(--surface); padding:3rem 2rem; text-align:center; }
+.stat-cell__n { font-family:var(--display); font-size:4rem; font-weight:600; font-style:italic; color:var(--gold); line-height:1; display:block; }
+.stat-cell__l { font-size:0.8rem; font-weight:300; color:var(--cream-dim); margin-top:0.5rem; letter-spacing:0.04em; }
+@media(max-width:600px){ .stat-row { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+<canvas id="particles-canvas" aria-hidden="true"></canvas>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav__logo">Danrley</a>
+  <ul class="nav__links" id="nav-links">
+    <li><a href="#essencia">Essência</a></li>
+    <li><a href="#posicionamento">Posicionamento</a></li>
+    <li><a href="#valores">Valores</a></li>
+    <li><a href="#publico">Público</a></li>
+    <li><a href="#touchpoints">Ecossistema</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#social">Social</a></li>
+    <li><a href="#manifesto">Manifesto</a></li>
+  </ul>
+  <button class="nav__burger" id="burger" aria-expanded="false" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" aria-labelledby="hero-h1">
+  <div class="hero__orb1" aria-hidden="true"></div>
+  <div class="hero__orb2" aria-hidden="true"></div>
+  <div class="hero__line" aria-hidden="true"></div>
+  <div class="wrap" style="padding-top:11rem;">
+    <div class="hero__eyebrow reveal">Plataforma de Marca · Studio ONK · 2026</div>
+    <h1 class="hero__name reveal d1" id="hero-h1">
+      Danrley<br><em>de Freitas</em><br>Coelho
+    </h1>
+    <p class="hero__sub reveal d2">Médico. Investidor. Mentor de aprendizado. A marca que estuda em público e prova, campo por campo, que aprender com consistência transforma qualquer ponto de partida.</p>
+    <span class="hero__essence reveal d3" id="typewriter-target">Aprender em público.</span>
+  </div>
+  <div class="hero__scroll" aria-hidden="true"><span>Scroll</span></div>
+</section>
+
+<!-- ESSÊNCIA -->
+<section class="section" id="essencia">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="stag">01 Essência</span>
+      <h2 class="stitle">Propósito,<br><em>Missão e Visão</em></h2>
+      <p class="sbody">Três pilares que precedem qualquer estratégia. A razão de existir, o modo de agir e o quadro de sucesso futuro, todos derivados de uma trajetória que não pode ser fabricada.</p>
+    </div>
+    <div class="vmv">
+      <div class="vmv__cell reveal d1">
+        <span class="vmv__tag">Propósito</span>
+        <div class="vmv__title">Por que a marca existe</div>
+        <p class="vmv__body">Acreditamos que aprender é o ato mais transformador disponível para qualquer ser humano, independente de origem ou de ponto de partida. Por isso Danrley estuda em público, compartilha com profundidade real e demonstra, pela própria trajetória, que o hábito de aprender muda tudo.</p>
+      </div>
+      <div class="vmv__cell reveal d2">
+        <span class="vmv__tag">Missão</span>
+        <div class="vmv__title">Estudar em público com profundidade real</div>
+        <p class="vmv__body">Não como performance de intelectualidade, mas como demonstração contínua de que o hábito de aprender produz resultados verificáveis. A medicina é o campo onde essa demonstração é mais concreta. Os investimentos, onde ela é mais estratégica.</p>
+      </div>
+      <div class="vmv__cell reveal d3">
+        <span class="vmv__tag">Visão</span>
+        <div class="vmv__title">Referência brasileira em 20 anos</div>
+        <p class="vmv__body">Ser reconhecido como quem demonstrou ser possível ser médico, investidor e mentor de aprendizado ao mesmo tempo, não como exceção curiosa, mas como modelo replicável que influenciou uma geração a estudar com mais seriedade e menos vergonha.</p>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stat-row">
+      <div class="stat-cell reveal d1">
+        <span class="stat-cell__n" data-counter="3">0</span>
+        <p class="stat-cell__l">Campos de atuação integrados</p>
+      </div>
+      <div class="stat-cell reveal d2">
+        <span class="stat-cell__n" data-counter="20">0</span>
+        <p class="stat-cell__l">Anos para a visão de longo prazo</p>
+      </div>
+      <div class="stat-cell reveal d3">
+        <span class="stat-cell__n" data-counter="1">0</span>
+        <p class="stat-cell__l">Brand essence inegociável</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CEREBRO BANNER -->
+<div class="cerebro-banner" aria-label="Frase central da marca">
+  <div class="wrap" style="position:relative;z-index:1;">
+    <span class="cerebro-banner__label reveal">A tese central</span>
+    <p class="cerebro-banner__phrase reveal d1">
+      <em>"O cérebro que se expande</em><br>nunca mais volta ao estado anterior."
+    </p>
+    <span class="cerebro-banner__attr reveal d2">A crença que move a marca, refeita todos os dias desde Ponte Nova.</span>
+  </div>
+</div>
+
+<!-- BRAND IDEA PULL -->
+<div class="pull">
+  <div class="pull__inner">
+    <div class="pull__bar reveal-scale"></div>
+    <blockquote class="pull__text reveal d1">
+      Danrley é a marca que estuda em público, e prova, campo por campo, que aprender com consistência transforma qualquer ponto de partida.
+    </blockquote>
+  </div>
+</div>
+
+<!-- POSICIONAMENTO -->
+<section class="section" id="posicionamento">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="stag">02 Posicionamento</span>
+      <h2 class="stitle">Three-Point<br><em>Positioning</em></h2>
+      <p class="sbody">Sustentável, diferente e relevante. Um posicionamento que nenhum concorrente pode usar sem ser falso, ancorado em trajetória real, não em declaração de intenção.</p>
+    </div>
+    <div class="pos-stmt reveal d1">
+      <span class="pos-stmt__for">Para pessoas curiosas e em movimento</span>
+      <p class="pos-stmt__text">Danrley de Freitas Coelho é o <strong>mentor de aprendizado</strong> que usa a medicina e os investimentos como campos de demonstração para uma tese mais fundamental: que o hábito de estudar com consistência transforma qualquer realidade, porque ele mesmo é a <strong>evidência verificável dessa tese</strong>: cresceu sem pai, ao lado de uma boca de fumo em Ponte Nova, e chegou à medicina, às finanças e ao ensino <strong>não apesar disso, mas através de uma escolha</strong> que esse contexto tornava extraordinária.</p>
+    </div>
+
+    <!-- PERCEPTUAL MAP -->
+    <div class="map-box reveal d2">
+      <p class="map-box__label">Mapa perceptual · Posição competitiva</p>
+      <svg viewBox="0 0 720 420" width="100%" style="display:block;" role="img" aria-label="Mapa perceptual mostrando Danrley no quadrante desocupado de aprendizado como identidade com profundidade acessível">
+        <defs>
+          <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="rgba(234,226,212,0.25)" stroke-width="1.5"/>
+          </marker>
+        </defs>
+        <!-- Grid -->
+        <line x1="360" y1="30" x2="360" y2="400" stroke="rgba(234,226,212,0.06)" stroke-width="1"/>
+        <line x1="40" y1="215" x2="680" y2="215" stroke="rgba(234,226,212,0.06)" stroke-width="1"/>
+        <!-- Axes -->
+        <line x1="360" y1="395" x2="360" y2="40" stroke="rgba(234,226,212,0.2)" stroke-width="1" marker-end="url(#arw)"/>
+        <line x1="45" y1="215" x2="675" y2="215" stroke="rgba(234,226,212,0.2)" stroke-width="1" marker-end="url(#arw)"/>
+        <!-- Labels -->
+        <text x="360" y="26" text-anchor="middle" fill="rgba(191,160,106,0.7)" font-family="Inter,sans-serif" font-size="11" font-weight="500">Aprendizado como identidade central</text>
+        <text x="360" y="416" text-anchor="middle" fill="rgba(234,226,212,0.3)" font-family="Inter,sans-serif" font-size="11">Especialidade como identidade central</text>
+        <text x="30" y="215" text-anchor="middle" fill="rgba(234,226,212,0.3)" font-family="Inter,sans-serif" font-size="11" transform="rotate(-90,30,215)">Sem acessibilidade</text>
+        <text x="688" y="215" text-anchor="middle" fill="rgba(234,226,212,0.3)" font-family="Inter,sans-serif" font-size="11" transform="rotate(90,688,215)">Profundidade acessível</text>
+        <!-- Danrley -->
+        <circle cx="575" cy="80" r="22" fill="rgba(191,160,106,0.12)" stroke="rgba(191,160,106,0.55)" stroke-width="1.5">
+          <animate attributeName="r" values="20;24;20" dur="3s" repeatCount="indefinite"/>
+          <animate attributeName="stroke-opacity" values="0.55;0.9;0.55" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <text x="575" y="84" text-anchor="middle" fill="#BFA06A" font-family="'Cormorant Garamond',serif" font-size="12" font-weight="600" font-style="italic">Danrley</text>
+        <!-- Competitors -->
+        <circle cx="480" cy="148" r="9" fill="rgba(234,226,212,0.04)" stroke="rgba(234,226,212,0.16)" stroke-width="1"/>
+        <text x="480" y="136" text-anchor="middle" fill="rgba(234,226,212,0.3)" font-family="Inter,sans-serif" font-size="10">Joel Jota</text>
+        <circle cx="390" cy="110" r="9" fill="rgba(234,226,212,0.04)" stroke="rgba(234,226,212,0.16)" stroke-width="1"/>
+        <text x="390" y="98" text-anchor="middle" fill="rgba(234,226,212,0.3)" font-family="Inter,sans-serif" font-size="10">T. Brunet</text>
+        <circle cx="570" cy="295" r="9" fill="rgba(234,226,212,0.04)" stroke="rgba(234,226,212,0.16)" stroke-width="1"/>
+        <text x="570" y="283" text-anchor="middle" fill="rgba(234,226,212,0.3)" font-family="Inter,sans-serif" font-size="10">Caio Carneiro</text>
+        <circle cx="540" cy="325" r="9" fill="rgba(234,226,212,0.04)" stroke="rgba(234,226,212,0.16)" stroke-width="1"/>
+        <text x="540" y="342" text-anchor="middle" fill="rgba(234,226,212,0.3)" font-family="Inter,sans-serif" font-size="10">Criadores médicos</text>
+        <circle cx="155" cy="165" r="9" fill="rgba(234,226,212,0.04)" stroke="rgba(234,226,212,0.16)" stroke-width="1"/>
+        <text x="155" y="153" text-anchor="middle" fill="rgba(234,226,212,0.3)" font-family="Inter,sans-serif" font-size="10">Ed. financeiros</text>
+        <!-- Quadrant highlight -->
+        <rect x="362" y="42" width="310" height="171" fill="rgba(191,160,106,0.025)" rx="10"/>
+        <text x="517" y="190" text-anchor="middle" fill="rgba(191,160,106,0.22)" font-family="Inter,sans-serif" font-size="10" letter-spacing="0.1em">QUADRANTE DESOCUPADO</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- 6CS -->
+<section class="section">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="stag">03 Os 6Cs</span>
+      <h2 class="stitle">Os seis territórios<br><em>do posicionamento</em></h2>
+    </div>
+    <div class="sixc">
+      <div class="sixc__cell reveal d1">
+        <span class="sixc__ghost" aria-hidden="true">C</span>
+        <span class="sixc__tag">Core</span>
+        <div class="sixc__title">DNA inegociável</div>
+        <p class="sixc__body">O aprendizado permanente como modo de existir no mundo. A âncora que testa cada decisão: se demonstra que aprender transforma, é da marca. Se não demonstra, não é.</p>
+      </div>
+      <div class="sixc__cell reveal d2">
+        <span class="sixc__ghost" aria-hidden="true">C</span>
+        <span class="sixc__tag">Category</span>
+        <div class="sixc__title">Mentor de aprendizado com credencial de vida</div>
+        <p class="sixc__body">Uma categoria criada, não escolhida. Não médico criador de conteúdo. Não educador financeiro para médicos. Uma figura que ensina através do que vive, com autoridade tanto no que sabe quanto em como aprendeu.</p>
+      </div>
+      <div class="sixc__cell reveal d3">
+        <span class="sixc__ghost" aria-hidden="true">C</span>
+        <span class="sixc__tag">Community</span>
+        <div class="sixc__title">Três círculos concêntricos</div>
+        <p class="sixc__body">Os que já vivenciaram a entrega. Os pares que constroem a reputação técnica. E qualquer pessoa que acredita que aprender muda vida e está procurando um modelo concreto, não inspiração genérica.</p>
+      </div>
+      <div class="sixc__cell reveal d1">
+        <span class="sixc__ghost" aria-hidden="true">C</span>
+        <span class="sixc__tag">Competition</span>
+        <div class="sixc__title">Figuras de autoridade intelectual</div>
+        <p class="sixc__body">Joel Jota, Tiago Brunet, Caio Carneiro. Nenhum tem a combinação de formação médica, visão financeira genuína e trajetória de origem que Danrley carrega. Nenhum posiciona o aprendizado como identidade central.</p>
+      </div>
+      <div class="sixc__cell reveal d2">
+        <span class="sixc__ghost" aria-hidden="true">C</span>
+        <span class="sixc__tag">Context</span>
+        <div class="sixc__title">Quatro ventos favoráveis</div>
+        <p class="sixc__body">Esgotamento da medicina convencional. Saturação do conteúdo superficial. Ascensão do aprendizado autodirigido. Esgotamento do discurso motivacional genérico. Raramente quatro forças culturais convergem assim.</p>
+      </div>
+      <div class="sixc__cell reveal d3">
+        <span class="sixc__ghost" aria-hidden="true">C</span>
+        <span class="sixc__tag">Criteria</span>
+        <div class="sixc__title">Autenticidade e profundidade</div>
+        <p class="sixc__body">O paciente decide porque Danrley escutou e explicou o que nenhum outro médico explicou. O médico decide porque a trajetória é verificável. A pessoa em crescimento decide porque a origem torna a tese irrefutável.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- VALORES -->
+<section class="section" id="valores">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="stag">04 Valores</span>
+      <h2 class="stitle">Verbos com<br><em>exigência real</em></h2>
+      <p class="sbody">Os valores de Danrley não são adjetivos decorativos. São comportamentos que governam cada decisão da marca, do conteúdo à consulta, do post à mentoria.</p>
+    </div>
+    <div class="vals">
+      <div class="val reveal d1">
+        <div class="val__verb">Estudar antes de falar</div>
+        <p class="val__body"><strong>Nenhum conteúdo é entregue sem domínio genuíno do assunto.</strong> A profundidade não é estética, é pré-requisito. Simplificar é diferente de esvaziar. Essa distinção é inegociável.</p>
+      </div>
+      <div class="val reveal d2">
+        <div class="val__verb">Mostrar o processo</div>
+        <p class="val__body"><strong>O valor da marca está na jornada de aprendizado visível, não apenas nas conclusões empacotadas.</strong> Quem só mostra o destino vende ilusão. Quem mostra o caminho constrói confiança real.</p>
+      </div>
+      <div class="val reveal d3">
+        <div class="val__verb">Ir fundo ou não ir</div>
+        <p class="val__body"><strong>Danrley não produz conteúdo de superfície.</strong> Cada assunto merece a profundidade que o transforma em entendimento real, não em informação que esquece no dia seguinte.</p>
+      </div>
+      <div class="val reveal d4">
+        <div class="val__verb">Provar com a vida</div>
+        <p class="val__body"><strong>Cada promessa tem a trajetória como evidência primária.</strong> Nenhum discurso que não tenha sido vivido antes de ser ensinado. A origem em Ponte Nova é argumento, não decoração.</p>
+      </div>
+      <div class="val reveal d5">
+        <div class="val__verb">Recusar o atalho</div>
+        <p class="val__body"><strong>Tanto na prática clínica quanto na construção de audiência, o caminho longo é o único aceitável.</strong> Atalho é promessa de resultado sem o caminho. Isso nunca será desta marca.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- ARQUÉTIPOS -->
+<section class="section">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="stag">05 Arquétipos</span>
+      <h2 class="stitle">Sábio<br><em>e Herói</em></h2>
+      <p class="sbody">A síntese dos dois produz o tipo de figura de autoridade mais raro no mercado atual. Você admira pela inteligência e pela história ao mesmo tempo.</p>
+    </div>
+    <div class="arch">
+      <div class="arch__card arch__card--p reveal-left">
+        <span class="arch__badge">Primário</span>
+        <div class="arch__name">O Sábio</div>
+        <p class="arch__body">Está no centro porque é o mais autêntico: Danrley estuda porque é quem ele é. A promessa do Sábio é o conhecimento como caminho para a verdade e para a liberdade. Danrley entrega isso com a postura de quem descobre e compartilha, nunca de quem condescende.</p>
+        <div class="arch__ghost" aria-hidden="true">S</div>
+      </div>
+      <div class="arch__card reveal-right d2">
+        <span class="arch__badge">Secundário com peso equivalente</span>
+        <div class="arch__name">O Herói</div>
+        <p class="arch__body">Presente como substrato: a trajetória de Danrley é literalmente heroica no sentido arquetípico. Adversidade real, escolha difícil, demonstração com ação. Danrley não usa a trajetória como performance de sofrimento. Usa como prova de que o caminho que ele ensina foi trilhado de verdade.</p>
+        <div class="arch__ghost" aria-hidden="true">H</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- RTBs -->
+<section class="section">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="stag">06 Reasons to Believe</span>
+      <h2 class="stitle">As três provas<br><em>inegociáveis</em></h2>
+      <p class="sbody">Autoridade não se declara, se demonstra. Cada RTB é uma prova que nenhum concorrente pode usar sem ser falso.</p>
+    </div>
+    <div class="rtbs">
+      <div class="rtb reveal d1">
+        <span class="rtb__n" aria-hidden="true">1</span>
+        <div>
+          <div class="rtb__title">Performance clínica reconhecida</div>
+          <p class="rtb__body">A recorrência do elogio "foi a melhor consulta que já fiz", não como elogio à simpatia, mas como reconhecimento da capacidade de traduzir conhecimento complexo em clareza transformadora. O caso do paciente psiquiátrico grave que saiu de uma consulta de quase uma hora com nova perspectiva de vida é a prova mais eloquente do que a marca entrega em seu melhor momento clínico.</p>
+        </div>
+      </div>
+      <div class="rtb reveal d2">
+        <span class="rtb__n" aria-hidden="true">2</span>
+        <div>
+          <div class="rtb__title">Trajetória verificável, específica, irrefutável</div>
+          <p class="rtb__body">Ponte Nova, interior de Minas Gerais. Pai assassinado ainda criança. Boca de fumo ao lado de casa. Mãe e irmão mais novo. Medicina por escolha, em um ambiente onde essa escolha era extraordinária, não óbvia. Ninguém que cresceu naquelas condições e chegou onde ele chegou pode ser acusado de vender ilusão de facilidade.</p>
+        </div>
+      </div>
+      <div class="rtb reveal d3">
+        <span class="rtb__n" aria-hidden="true">3</span>
+        <div>
+          <div class="rtb__title">Interdisciplinaridade genuína</div>
+          <p class="rtb__body">Formação médica com domínio técnico reconhecido por pares, conhecimento de investimentos com profundidade suficiente para ensinar outros médicos, visão interdisciplinar construída por curiosidade genuína, não por imposição de mercado. Cada credencial seria válida isoladamente. Juntas, formam uma arquitetura que nenhum concorrente replica.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- PÚBLICO -->
+<section class="section" id="publico">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="stag">07 Público</span>
+      <h2 class="stitle">Quem orbita<br><em>a marca</em></h2>
+      <p class="sbody">Três segmentos primários com motivações distintas para chegar, mas todos com o mesmo critério de permanência: profundidade real e autenticidade verificável.</p>
+    </div>
+    <div class="aud">
+      <div class="aud__card reveal d1">
+        <div class="aud__n" aria-hidden="true">01</div>
+        <div class="aud__title">O paciente que quer ser tratado inteiro</div>
+        <p class="aud__dor">Dor central</p>
+        <p class="aud__body">Nunca teve uma consulta onde o médico realmente escutou. Sai com mais dúvidas do que entrou. Desconfia de prescrições automáticas. Quer entender o mecanismo, não apenas seguir o protocolo.</p>
+      </div>
+      <div class="aud__card reveal d2">
+        <div class="aud__n" aria-hidden="true">02</div>
+        <div class="aud__title">O médico que quer sair do ciclo</div>
+        <p class="aud__dor">Dor central</p>
+        <p class="aud__body">Quanto mais trabalha, mais precisa trabalhar. Não está construindo, está mantendo. Quer um modelo concreto de que é possível ser médico e construir autonomia ao mesmo tempo, sem abandonar a medicina.</p>
+      </div>
+      <div class="aud__card reveal d3">
+        <div class="aud__n" aria-hidden="true">03</div>
+        <div class="aud__title">A pessoa em crescimento</div>
+        <p class="aud__dor">Dor central</p>
+        <p class="aud__body">Consome muito conteúdo e cresce pouco. Quer prova, não inspiração. Precisa de um modelo cujo ponto de partida torna a tese irrefutável: se ele saiu dali pelo estudo, a desculpa do contexto não se sustenta.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- TOM DE VOZ -->
+<section class="section">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="stag">08 Tom de Voz</span>
+      <h2 class="stitle">Como a marca<br><em>fala</em></h2>
+    </div>
+    <div class="voice-grid">
+      <div class="vspec reveal d1">
+        <div class="vspec__lbl"><span class="vspec__a">Humor</span><span class="vspec__b">Seriedade</span></div>
+        <div class="vspec__track"><div class="vspec__fill" style="--tw:75%" data-w="75"></div></div>
+        <p class="vspec__desc">Sério com o conhecimento, leve com a jornada. Nunca humor como estratégia de alcance.</p>
+      </div>
+      <div class="vspec reveal d2">
+        <div class="vspec__lbl"><span class="vspec__a">Formal</span><span class="vspec__b">Casual</span></div>
+        <div class="vspec__track"><div class="vspec__fill" style="--tw:70%" data-w="70"></div></div>
+        <p class="vspec__desc">Casual na linguagem, exigente na profundidade. Explica mecanismos complexos sem jargão que exclui.</p>
+      </div>
+      <div class="vspec reveal d3">
+        <div class="vspec__lbl"><span class="vspec__a">Reverente</span><span class="vspec__b">Irreverente</span></div>
+        <div class="vspec__track"><div class="vspec__fill" style="--tw:60%" data-w="60"></div></div>
+        <p class="vspec__desc">Respeitoso com a ciência, irreverente com a mediocridade. Não ataca pessoas, não tem paciência com charlatanismo.</p>
+      </div>
+      <div class="vspec reveal d4">
+        <div class="vspec__lbl"><span class="vspec__a">Pragmático</span><span class="vspec__b">Entusiasmado</span></div>
+        <div class="vspec__track"><div class="vspec__fill" style="--tw:80%" data-w="80"></div></div>
+        <p class="vspec__desc">Genuinamente entusiasmado. Quando Danrley fala de algo que acabou de aprender, a energia é real, não performática.</p>
+      </div>
+      <div class="vnever reveal d1">
+        <span class="vnever__tag">A marca jamais diz</span>
+        <ul class="vnever__pills">
+          <li>"Isso é complicado demais para explicar aqui"</li>
+          <li>"Confia no processo"</li>
+          <li>"Enquanto você dormia, os ricos estavam..."</li>
+          <li>Qualquer frase que trate o público como incapaz</li>
+          <li>Qualquer conteúdo que venda atalho sem o caminho</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOUCHPOINTS -->
+<section class="tp-section" id="touchpoints">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="stag">09 Ecossistema de Marca</span>
+      <h2 class="stitle">Pontos de contato<br><em>e presença</em></h2>
+      <p class="sbody">Cada ponto de contato deve passar no teste da brand essence: demonstra que aprender transforma? Se sim, é da marca. Se não, é ruído.</p>
+    </div>
+    <div class="reveal d1" style="margin-top:3.5rem;">
+      <svg viewBox="0 0 720 540" width="100%" style="display:block;" role="img" aria-label="Diagrama de ecossistema de marca mostrando Danrley no centro com pontos de contato em quatro camadas">
+        <defs>
+          <radialGradient id="cg" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="rgba(191,160,106,0.18)"/>
+            <stop offset="100%" stop-color="rgba(191,160,106,0)"/>
+          </radialGradient>
+          <marker id="tp-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="rgba(191,160,106,0.35)" stroke-width="1.5"/>
+          </marker>
+        </defs>
+        <!-- Concentric rings -->
+        <circle cx="360" cy="270" r="240" fill="none" stroke="rgba(234,226,212,0.04)" stroke-width="1" stroke-dasharray="4 6"/>
+        <circle cx="360" cy="270" r="175" fill="none" stroke="rgba(234,226,212,0.05)" stroke-width="1" stroke-dasharray="4 6"/>
+        <circle cx="360" cy="270" r="110" fill="none" stroke="rgba(234,226,212,0.07)" stroke-width="1"/>
+        <!-- Center -->
+        <circle cx="360" cy="270" r="58" fill="url(#cg)" stroke="rgba(191,160,106,0.5)" stroke-width="1.5"/>
+        <text x="360" y="264" text-anchor="middle" fill="#BFA06A" font-family="'Cormorant Garamond',serif" font-size="15" font-weight="600" font-style="italic">Danrley</text>
+        <text x="360" y="280" text-anchor="middle" fill="rgba(191,160,106,0.55)" font-family="Inter,sans-serif" font-size="9" letter-spacing="0.12em">BRAND CORE</text>
+
+        <!-- LAYER 1: Owned (radius ~110) -->
+        <!-- Instagram -->
+        <line x1="360" y1="212" x2="360" y2="175" stroke="rgba(191,160,106,0.2)" stroke-width="1" marker-end="url(#tp-arrow)"/>
+        <rect x="305" y="148" width="110" height="42" rx="8" fill="rgba(15,15,14,0.9)" stroke="rgba(191,160,106,0.3)" stroke-width="1"/>
+        <text x="360" y="166" text-anchor="middle" fill="#BFA06A" font-family="Inter,sans-serif" font-size="10" font-weight="500">Instagram</text>
+        <text x="360" y="180" text-anchor="middle" fill="rgba(234,226,212,0.4)" font-family="Inter,sans-serif" font-size="9">Conteúdo diário</text>
+
+        <!-- YouTube -->
+        <line x1="430" y1="240" x2="465" y2="215" stroke="rgba(191,160,106,0.2)" stroke-width="1" marker-end="url(#tp-arrow)"/>
+        <rect x="460" y="192" width="110" height="42" rx="8" fill="rgba(15,15,14,0.9)" stroke="rgba(191,160,106,0.3)" stroke-width="1"/>
+        <text x="515" y="210" text-anchor="middle" fill="#BFA06A" font-family="Inter,sans-serif" font-size="10" font-weight="500">YouTube</text>
+        <text x="515" y="224" text-anchor="middle" fill="rgba(234,226,212,0.4)" font-family="Inter,sans-serif" font-size="9">Long-form, profundidade</text>
+
+        <!-- Consultório -->
+        <line x1="430" y1="300" x2="465" y2="310" stroke="rgba(191,160,106,0.2)" stroke-width="1" marker-end="url(#tp-arrow)"/>
+        <rect x="460" y="295" width="110" height="42" rx="8" fill="rgba(15,15,14,0.9)" stroke="rgba(191,160,106,0.3)" stroke-width="1"/>
+        <text x="515" y="313" text-anchor="middle" fill="#BFA06A" font-family="Inter,sans-serif" font-size="10" font-weight="500">Consultório</text>
+        <text x="515" y="327" text-anchor="middle" fill="rgba(234,226,212,0.4)" font-family="Inter,sans-serif" font-size="9">Entrega clínica real</text>
+
+        <!-- LinkedIn -->
+        <line x1="360" y1="328" x2="360" y2="368" stroke="rgba(191,160,106,0.2)" stroke-width="1" marker-end="url(#tp-arrow)"/>
+        <rect x="305" y="365" width="110" height="42" rx="8" fill="rgba(15,15,14,0.9)" stroke="rgba(191,160,106,0.3)" stroke-width="1"/>
+        <text x="360" y="383" text-anchor="middle" fill="#BFA06A" font-family="Inter,sans-serif" font-size="10" font-weight="500">LinkedIn</text>
+        <text x="360" y="397" text-anchor="middle" fill="rgba(234,226,212,0.4)" font-family="Inter,sans-serif" font-size="9">Autoridade profissional</text>
+
+        <!-- Podcast -->
+        <line x1="290" y1="300" x2="253" y2="310" stroke="rgba(191,160,106,0.2)" stroke-width="1" marker-end="url(#tp-arrow)"/>
+        <rect x="148" y="295" width="110" height="42" rx="8" fill="rgba(15,15,14,0.9)" stroke="rgba(191,160,106,0.3)" stroke-width="1"/>
+        <text x="203" y="313" text-anchor="middle" fill="#BFA06A" font-family="Inter,sans-serif" font-size="10" font-weight="500">Podcast</text>
+        <text x="203" y="327" text-anchor="middle" fill="rgba(234,226,212,0.4)" font-family="Inter,sans-serif" font-size="9">Conversas longas</text>
+
+        <!-- Newsletter -->
+        <line x1="290" y1="240" x2="253" y2="215" stroke="rgba(191,160,106,0.2)" stroke-width="1" marker-end="url(#tp-arrow)"/>
+        <rect x="148" y="192" width="110" height="42" rx="8" fill="rgba(15,15,14,0.9)" stroke="rgba(191,160,106,0.3)" stroke-width="1"/>
+        <text x="203" y="210" text-anchor="middle" fill="#BFA06A" font-family="Inter,sans-serif" font-size="10" font-weight="500">Newsletter</text>
+        <text x="203" y="224" text-anchor="middle" fill="rgba(234,226,212,0.4)" font-family="Inter,sans-serif" font-size="9">Comunidade direta</text>
+
+        <!-- LAYER 2: Products (radius ~175) -->
+        <!-- Curso / mentoria -->
+        <line x1="360" y1="212" x2="360" y2="100" stroke="rgba(234,226,212,0.06)" stroke-width="1" stroke-dasharray="3 4" marker-end="url(#tp-arrow)"/>
+        <rect x="282" y="72" width="156" height="42" rx="8" fill="rgba(10,10,8,0.95)" stroke="rgba(234,226,212,0.12)" stroke-width="1"/>
+        <text x="360" y="91" text-anchor="middle" fill="rgba(234,226,212,0.65)" font-family="Inter,sans-serif" font-size="10" font-weight="500">Curso / Mentoria</text>
+        <text x="360" y="105" text-anchor="middle" fill="rgba(234,226,212,0.28)" font-family="Inter,sans-serif" font-size="9">Produto estruturado</text>
+
+        <!-- Comunidade paga -->
+        <line x1="519" y1="324" x2="568" y2="378" stroke="rgba(234,226,212,0.06)" stroke-width="1" stroke-dasharray="3 4" marker-end="url(#tp-arrow)"/>
+        <rect x="536" y="378" width="140" height="42" rx="8" fill="rgba(10,10,8,0.95)" stroke="rgba(234,226,212,0.12)" stroke-width="1"/>
+        <text x="606" y="397" text-anchor="middle" fill="rgba(234,226,212,0.65)" font-family="Inter,sans-serif" font-size="10" font-weight="500">Comunidade paga</text>
+        <text x="606" y="411" text-anchor="middle" fill="rgba(234,226,212,0.28)" font-family="Inter,sans-serif" font-size="9">Tribo de aprendizado</text>
+
+        <!-- Palestras -->
+        <line x1="201" y1="324" x2="140" y2="380" stroke="rgba(234,226,212,0.06)" stroke-width="1" stroke-dasharray="3 4" marker-end="url(#tp-arrow)"/>
+        <rect x="44" y="380" width="110" height="42" rx="8" fill="rgba(10,10,8,0.95)" stroke="rgba(234,226,212,0.12)" stroke-width="1"/>
+        <text x="99" y="399" text-anchor="middle" fill="rgba(234,226,212,0.65)" font-family="Inter,sans-serif" font-size="10" font-weight="500">Palestras</text>
+        <text x="99" y="413" text-anchor="middle" fill="rgba(234,226,212,0.28)" font-family="Inter,sans-serif" font-size="9">Escala presencial</text>
+
+        <!-- LAYER LABELS -->
+        <text x="42" y="248" fill="rgba(191,160,106,0.3)" font-family="Inter,sans-serif" font-size="9" letter-spacing="0.12em" text-anchor="middle" transform="rotate(-90,42,248)">CANAIS PRÓPRIOS</text>
+        <text x="16" y="248" fill="rgba(234,226,212,0.15)" font-family="Inter,sans-serif" font-size="9" letter-spacing="0.12em" text-anchor="middle" transform="rotate(-90,16,248)">PRODUTOS</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="section" id="roadmap">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="stag">10 Roadmap</span>
+      <h2 class="stitle">Do comportamento<br><em>ao ícone</em></h2>
+      <p class="sbody">O posicionamento não precisa de logo para existir. Precisa de comportamento consistente. Este roadmap é executável hoje, com o que Danrley já tem.</p>
+    </div>
+    <div class="roadmap">
+      <div class="rm-phase reveal d1">
+        <div class="rm-phase__left">
+          <span class="rm-phase__period">Dias 1 a 30</span>
+          <div class="rm-phase__label">Ancoragem</div>
+        </div>
+        <div>
+          <div class="rm-phase__title">Definição de comportamento e postura</div>
+          <p class="rm-phase__body">Escolher dois ou três campos genuinamente estudados agora e começar a postar no formato "estou aprendendo X". Introduzir a trajetória de forma contextual, como argumento dentro de conteúdo de substância. Parar gradualmente de postar conteúdo que não passa no teste da brand essence, sem anunciar a mudança.</p>
+          <div class="rm-phase__kpis">
+            <span class="rm-kpi">Qualidade dos comentários</span>
+            <span class="rm-kpi">"Estuda de verdade"</span>
+            <span class="rm-kpi">"Vai fundo"</span>
+          </div>
+        </div>
+      </div>
+      <div class="rm-phase reveal d2">
+        <div class="rm-phase__left">
+          <span class="rm-phase__period">Dias 31 a 60</span>
+          <div class="rm-phase__label">Consistência</div>
+        </div>
+        <div>
+          <div class="rm-phase__title">Estabelecimento de ritmo e profundidade</div>
+          <p class="rm-phase__body">Escolher um formato longo, YouTube ou podcast ou texto, onde a profundidade seja impossível de fingir, com regularidade mínima de uma vez por semana. Conectar explicitamente os campos, medicina, investimentos e desenvolvimento humano, em pelo menos um conteúdo. Normalizar a frase "estou aprendendo" como declaração de identidade.</p>
+          <div class="rm-phase__kpis">
+            <span class="rm-kpi">Seguidores que citam a forma de aprender</span>
+            <span class="rm-kpi">1 formato longo semanal</span>
+            <span class="rm-kpi">Conexão entre campos</span>
+          </div>
+        </div>
+      </div>
+      <div class="rm-phase reveal d3">
+        <div class="rm-phase__left">
+          <span class="rm-phase__period">Dias 61 a 90</span>
+          <div class="rm-phase__label">Expansão</div>
+        </div>
+        <div>
+          <div class="rm-phase__title">Abertura de audiência além do nicho médico</div>
+          <p class="rm-phase__body">Publicar pelo menos um conteúdo que fale diretamente para alguém que não é médico. Introduzir a narrativa da origem de forma mais direta em um conteúdo de alto alcance. Criar um gesto de comunidade, uma pergunta, um desafio de aprendizado que convide o público a participar da tese, não apenas consumi-la.</p>
+          <div class="rm-phase__kpis">
+            <span class="rm-kpi">Comentários fora do nicho médico</span>
+            <span class="rm-kpi">Origem citada pelos seguidores</span>
+            <span class="rm-kpi">Primeiro gesto de comunidade</span>
+          </div>
+        </div>
+      </div>
+      <div class="rm-phase reveal d4">
+        <div class="rm-phase__left">
+          <span class="rm-phase__period">Meses 4 a 6</span>
+          <div class="rm-phase__label">Identidade Visual</div>
+        </div>
+        <div>
+          <div class="rm-phase__title">Lançamento do sistema visual</div>
+          <p class="rm-phase__body">Com o posicionamento já estabelecido pelo comportamento, o visual chega para confirmar e consolidar o que a audiência já percebeu. O logo, a paleta, a tipografia e os templates de conteúdo devem parecer inevitáveis, não forçados. Quando o visual chegar, a percepção já está formada.</p>
+          <div class="rm-phase__kpis">
+            <span class="rm-kpi">Sistema visual completo</span>
+            <span class="rm-kpi">Templates de conteúdo</span>
+            <span class="rm-kpi">Site e bio atualizados</span>
+          </div>
+        </div>
+      </div>
+      <div class="rm-phase reveal d5">
+        <div class="rm-phase__left">
+          <span class="rm-phase__period">Meses 7 a 12</span>
+          <div class="rm-phase__label">Produto</div>
+        </div>
+        <div>
+          <div class="rm-phase__title">Primeiro produto estruturado</div>
+          <p class="rm-phase__body">Com marca consolidada, audiência qualificada e reputação construída por consistência, o primeiro produto, curso, mentoria ou comunidade paga, é lançado com autoridade pré-construída. O produto não cria a marca. A marca cria a demanda pelo produto.</p>
+          <div class="rm-phase__kpis">
+            <span class="rm-kpi">Primeiro produto lançado</span>
+            <span class="rm-kpi">Comunidade ativa</span>
+            <span class="rm-kpi">Receita previsível</span>
+          </div>
+        </div>
+      </div>
+      <div class="rm-phase reveal d6">
+        <div class="rm-phase__left">
+          <span class="rm-phase__period">Ano 2 em diante</span>
+          <div class="rm-phase__label">Ícone</div>
+        </div>
+        <div>
+          <div class="rm-phase__title">Construção do moat de longo prazo</div>
+          <p class="rm-phase__body">O nome Danrley tornando-se sinônimo de aprendizado com profundidade e autenticidade de trajetória. O custo de troca emocional da audiência já estabelecido. A marca como sistema completo: consultório, conteúdo, produtos, palestras e comunidade, tudo governado pelo mesmo núcleo.</p>
+          <div class="rm-phase__kpis">
+            <span class="rm-kpi">Referência no nicho</span>
+            <span class="rm-kpi">Moat de marca estabelecido</span>
+            <span class="rm-kpi">Custo de troca emocional alto</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- ARQUITETURA -->
+<section class="section">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="stag">11 Arquitetura de Marca</span>
+      <h2 class="stitle">Branded<br><em>House</em></h2>
+      <p class="sbody">Uma única identidade central sob a qual todos os conteúdos, serviços e entregas se organizam. A medicina, os investimentos e o ensino não são sub-marcas. São expressões da mesma identidade.</p>
+    </div>
+    <div class="arch-house reveal d1">
+      <div class="arch-house__name">Danrley</div>
+      <p class="arch-house__sub">Master brand · concentra toda a energia de reputação em um único identificador</p>
+      <div class="arch-spokes">
+        <span class="arch-spoke">Medicina clínica</span>
+        <span class="arch-spoke">Educação financeira</span>
+        <span class="arch-spoke">Desenvolvimento humano</span>
+        <span class="arch-spoke">Conteúdo e ensino</span>
+        <span class="arch-spoke">Mentoria</span>
+        <span class="arch-spoke">Comunidade</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- MOAT -->
+<section class="section">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="stag">12 Moat Estratégico</span>
+      <h2 class="stitle">O fosso<br><em>competitivo</em></h2>
+    </div>
+    <div class="moat">
+      <div class="moat__card reveal-left">
+        <div class="moat__icon" aria-hidden="true">M</div>
+        <div class="moat__title">Marca por consistência temporal</div>
+        <p class="moat__body">O nome Danrley tornando-se sinônimo de aprendizado com profundidade e autenticidade de trajetória. Esse fosso é o único que os concorrentes não podem copiar diretamente. É construído por consistência ao longo do tempo, não por capital ou por feature.</p>
+      </div>
+      <div class="moat__card reveal-right d2">
+        <div class="moat__icon" aria-hidden="true">T</div>
+        <div class="moat__title">Custo de troca emocional</div>
+        <p class="moat__body">À medida que a audiência se identifica com a tese e com a tribo, trocar Danrley por outro criador passa a ser identitariamente custoso, não apenas funcionalmente. Esse custo é construído por profundidade de engajamento, não por volume de postagens.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL MEDIA STRATEGY -->
+<section class="section" id="social">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="stag">13 Estratégia de Redes Sociais</span>
+      <h2 class="stitle">Presença digital<br><em>com intencionalidade</em></h2>
+      <p class="sbody">Cada plataforma cumpre uma função diferente no funil de construção de marca. Instagram é a vitrine do processo. YouTube é a prova da profundidade. As duas juntas criam o ecossistema que transforma seguidor em audiência leal.</p>
+    </div>
+
+    <!-- INSTAGRAM -->
+    <div class="sm-platform reveal d1" style="margin-top:4rem;">
+      <div class="sm-header">
+        <div class="sm-icon sm-icon--ig" aria-hidden="true">📷</div>
+        <div class="sm-header__info">
+          <div class="sm-header__name">Instagram</div>
+          <div class="sm-header__role">Canal de descoberta, processo e comunidade diária</div>
+        </div>
+        <div class="sm-meta">
+          <div class="sm-stat"><span class="sm-stat__n">5x</span><span class="sm-stat__l">por semana</span></div>
+          <div class="sm-stat"><span class="sm-stat__n">3</span><span class="sm-stat__l">pilares de conteúdo</span></div>
+          <div class="sm-stat"><span class="sm-stat__n">90%</span><span class="sm-stat__l">processo visível</span></div>
+        </div>
+      </div>
+      <div class="sm-body">
+        <div class="sm-pillars">
+          <div class="sm-pillar reveal d1">
+            <div class="sm-pillar__icon">🧠</div>
+            <div class="sm-pillar__name">Estou aprendendo</div>
+            <p class="sm-pillar__desc">O processo de aprendizado em tempo real. O que Danrley está estudando agora, o que mudou na forma de pensar, o que não sabia ontem e sabe hoje. Conteúdo que mostra a jornada, não a conclusão empacotada.</p>
+          </div>
+          <div class="sm-pillar reveal d2">
+            <div class="sm-pillar__icon">🔬</div>
+            <div class="sm-pillar__name">Mecanismos reais</div>
+            <p class="sm-pillar__desc">Medicina, finanças e desenvolvimento humano explicados pelo mecanismo, não pela prescrição. Conteúdo que expande permanentemente a forma de ver algo, o efeito <em>"O cérebro que se expande nunca mais volta ao estado anterior."</em></p>
+          </div>
+          <div class="sm-pillar reveal d3">
+            <div class="sm-pillar__icon">📍</div>
+            <div class="sm-pillar__name">Trajetória como argumento</div>
+            <p class="sm-pillar__desc">A origem usada contextualmente como prova da tese, não como biografia motivacional. "Eu cresci sem acesso a isso, então quando descobri esse conceito foi literalmente transformador." Argumento, não pano de fundo.</p>
+          </div>
+        </div>
+        <div class="sm-formats">
+          <span class="sm-formats__label">Formatos por função</span>
+          <div class="sm-format-list">
+            <div class="sm-format reveal d1">
+              <span class="sm-format__type">Reels</span>
+              <div>
+                <div class="sm-format__title">Descoberta e alcance</div>
+                <p class="sm-format__desc">15 a 60 segundos. Hook nos primeiros 2 segundos obrigatório. Formato: "A maioria dos médicos não sabe que..." ou "Estudei X horas sobre isso e o que encontrei foi..." Nunca fabricado para algoritmo, sempre derivado de algo que Danrley realmente estudou naquela semana.</p>
+              </div>
+            </div>
+            <div class="sm-format reveal d2">
+              <span class="sm-format__type">Carrossel</span>
+              <div>
+                <div class="sm-format__title">Profundidade e salvamento</div>
+                <p class="sm-format__desc">8 a 12 slides. Primeiro slide é o hook, últimos dois são síntese e CTA. Conteúdo que merece ser salvo: mecanismos fisiopatológicos, conceitos de investimentos, conexões entre campos. O objetivo é ser salvo, não ser curtido.</p>
+              </div>
+            </div>
+            <div class="sm-format reveal d3">
+              <span class="sm-format__type">Stories</span>
+              <div>
+                <div class="sm-format__title">Bastidores e processo</div>
+                <p class="sm-format__desc">O dia de estudo em tempo real. O livro que está lendo. A dúvida que surgiu na consulta. A conexão inesperada entre dois campos. Stories são o diário do aprendizado: o conteúdo mais autêntico e mais fiel ao posicionamento.</p>
+              </div>
+            </div>
+            <div class="sm-format reveal d4">
+              <span class="sm-format__type">Feed foto</span>
+              <div>
+                <div class="sm-format__title">Âncora de identidade</div>
+                <p class="sm-format__desc">Imagens que reforçam o posicionamento visual: Danrley em contexto de estudo, de consulta, de aprendizado. Não imagens de lifestyle genérico. Cada foto deve ser coerente com o arquétipo Sábio-Herói, intelectual e humano ao mesmo tempo.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="sm-formats__label" style="display:block;margin-bottom:1rem;">Frequência e cadência</span>
+        <div class="sm-freq">
+          <div class="sm-freq__item reveal d1"><span class="sm-freq__n">3x</span><p class="sm-freq__l">Reels por semana</p></div>
+          <div class="sm-freq__item reveal d2"><span class="sm-freq__n">2x</span><p class="sm-freq__l">Carrossel por semana</p></div>
+          <div class="sm-freq__item reveal d3"><span class="sm-freq__n">Diário</span><p class="sm-freq__l">Stories de processo</p></div>
+          <div class="sm-freq__item reveal d4"><span class="sm-freq__n">4x</span><p class="sm-freq__l">Foto de identidade / mês</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- YOUTUBE -->
+    <div class="sm-platform reveal d1" style="margin-top:2rem;">
+      <div class="sm-header">
+        <div class="sm-icon sm-icon--yt" aria-hidden="true">▶</div>
+        <div class="sm-header__info">
+          <div class="sm-header__name">YouTube</div>
+          <div class="sm-header__role">Canal de autoridade, profundidade e biblioteca de conhecimento</div>
+        </div>
+        <div class="sm-meta">
+          <div class="sm-stat"><span class="sm-stat__n">1x</span><span class="sm-stat__l">por semana</span></div>
+          <div class="sm-stat"><span class="sm-stat__n">3</span><span class="sm-stat__l">formatos principais</span></div>
+          <div class="sm-stat"><span class="sm-stat__n">100%</span><span class="sm-stat__l">impossível de fingir</span></div>
+        </div>
+      </div>
+      <div class="sm-body">
+        <div class="sm-pillars">
+          <div class="sm-pillar reveal d1">
+            <div class="sm-pillar__icon">📚</div>
+            <div class="sm-pillar__name">Aprendi X esta semana</div>
+            <p class="sm-pillar__desc">Série semanal onde Danrley compartilha o conteúdo que estudou, com profundidade real. Não um resumo de livro, mas o que aquele conteúdo abriu na sua forma de pensar. O título é sempre o aprendizado, não o tema genérico.</p>
+          </div>
+          <div class="sm-pillar reveal d2">
+            <div class="sm-pillar__icon">🏥</div>
+            <div class="sm-pillar__name">Medicina que ninguém explica</div>
+            <p class="sm-pillar__desc">Vídeos longos sobre mecanismos fisiopatológicos, doenças complexas, conexões entre saúde mental e física. Conteúdo que um médico sabe mas nunca teve tempo de explicar para leigos. O que diferencia: Danrley explica o mecanismo, não apenas o protocolo.</p>
+          </div>
+          <div class="sm-pillar reveal d3">
+            <div class="sm-pillar__icon">💰</div>
+            <div class="sm-pillar__name">Finanças para quem estuda muito</div>
+            <p class="sm-pillar__desc">Investimentos explicados para médicos e profissionais de alta formação intelectual mas baixa educação financeira. Sem jargão que exclui, sem simplificação que insulta a inteligência. O diferencial: Danrley aprendeu isso sozinho e sabe exatamente onde o conceito confunde.</p>
+          </div>
+        </div>
+        <div class="sm-formats">
+          <span class="sm-formats__label">Formatos e estrutura</span>
+          <div class="sm-format-list">
+            <div class="sm-format reveal d1">
+              <span class="sm-format__type">Long-form</span>
+              <div>
+                <div class="sm-format__title">Aula profunda (20 a 45 min)</div>
+                <p class="sm-format__desc">Um tema, profundidade máxima. Estrutura: contexto (por que isso importa), mecanismo (como funciona de verdade), aplicação (o que muda na prática), conexão (como isso se relaciona com outros campos). O objetivo é que o espectador saia com um novo modelo mental, não apenas nova informação.</p>
+              </div>
+            </div>
+            <div class="sm-format reveal d2">
+              <span class="sm-format__type">Mid-form</span>
+              <div>
+                <div class="sm-format__title">Processo de estudo (8 a 15 min)</div>
+                <p class="sm-format__desc">Como Danrley estuda um tema: fontes, frameworks, como sintetiza, como aplica. Conteúdo metacognitivo: ensina a aprender, não apenas o conteúdo em si. Esse formato é o mais fiel ao posicionamento de mentor de aprendizado.</p>
+              </div>
+            </div>
+            <div class="sm-format reveal d3">
+              <span class="sm-format__type">Shorts</span>
+              <div>
+                <div class="sm-format__title">Conceito em 60 segundos</div>
+                <p class="sm-format__desc">Um mecanismo, uma conexão, um conceito que muda como a pessoa pensa sobre algo. Derivado dos vídeos longos como teaser, nunca fabricado separadamente. Shorts são a porta de entrada para a biblioteca de conteúdo profundo.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="sm-formats__label" style="display:block;margin-bottom:1rem;">Cadência e produção</span>
+        <div class="sm-freq">
+          <div class="sm-freq__item reveal d1"><span class="sm-freq__n">1x</span><p class="sm-freq__l">Long-form por semana</p></div>
+          <div class="sm-freq__item reveal d2"><span class="sm-freq__n">2x</span><p class="sm-freq__l">Shorts por semana</p></div>
+          <div class="sm-freq__item reveal d3"><span class="sm-freq__n">Mínimo</span><p class="sm-freq__l">Profundidade antes de volume</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- CONTENT STRATEGY -->
+<section class="section">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="stag">14 Estratégia de Conteúdo</span>
+      <h2 class="stitle">Pilares, temas<br><em>e calendário editorial</em></h2>
+      <p class="sbody">A estratégia de conteúdo não parte de "o que devo falar" mas de "o que estou aprendendo agora". O calendário é consequência do aprendizado real, não fabricado para algoritmo.</p>
+    </div>
+
+    <!-- PILLAR TABLE -->
+    <div class="pillar-strategy">
+      <div class="ps-row ps-row--header">
+        <div class="ps-cell ps-cell--h">Pilar</div>
+        <div class="ps-cell ps-cell--h">Objetivo estratégico</div>
+        <div class="ps-cell ps-cell--h">Exemplo de hook</div>
+      </div>
+      <div class="ps-row reveal d1">
+        <div class="ps-cell"><span class="ps-pillar-name">Medicina profunda</span></div>
+        <div class="ps-cell"><p class="ps-text">Construir autoridade técnica inegociável. Esse pilar responde ao critério de decisão do paciente e do médico: Danrley sabe o que está falando. Conteúdo que nenhum outro criador médico entrega com essa profundidade.</p></div>
+        <div class="ps-cell"><p class="ps-hook">"O que acontece no cérebro de um paciente com depressão resistente e por que o tratamento padrão falha para ele"</p></div>
+      </div>
+      <div class="ps-row reveal d2">
+        <div class="ps-cell"><span class="ps-pillar-name">Finanças para médicos</span></div>
+        <div class="ps-cell"><p class="ps-text">Resolver a dor do médico que trabalha muito e não constrói. Posicionar Danrley como o único que entende os dois lados: sabe como é a armadilha porque viveu, e sabe como sair porque estudou.</p></div>
+        <div class="ps-cell"><p class="ps-hook">"Por que médicos com salário alto chegam aos 40 anos sem patrimônio. O que muda quando você entende um único conceito"</p></div>
+      </div>
+      <div class="ps-row reveal d3">
+        <div class="ps-cell"><span class="ps-pillar-name">Aprendizado como tecnologia</span></div>
+        <div class="ps-cell"><p class="ps-text">Posicionar o ato de aprender como o diferencial central. Metaconteúdo sobre como estudar, como reter, como conectar campos. Esse pilar é o que expande a audiência além do nicho médico. Qualquer pessoa curiosa se identifica.</p></div>
+        <div class="ps-cell"><p class="ps-hook">"Como estudei medicina e investimentos ao mesmo tempo sem abandonar nenhum dos dois. O que isso me ensinou sobre aprender"</p></div>
+      </div>
+      <div class="ps-row reveal d4">
+        <div class="ps-cell"><span class="ps-pillar-name">Desenvolvimento humano</span></div>
+        <div class="ps-cell"><p class="ps-text">Conectar a tese de aprendizado com psicologia, neurociência e comportamento humano. Esse pilar amplia o relevância da marca e cria o terceiro segmento de audiência: a pessoa em crescimento que não é médica.</p></div>
+        <div class="ps-cell"><p class="ps-hook">"A neurociência por trás de por que você esquece tudo que estuda. O que fazer diferente a partir de amanhã"</p></div>
+      </div>
+      <div class="ps-row reveal d5">
+        <div class="ps-cell"><span class="ps-pillar-name">Trajetória e origem</span></div>
+        <div class="ps-cell"><p class="ps-text">Usar a história como argumento estratégico, não como biografia. Publicado com menor frequência, mas com alto impacto. Cada post de trajetória deve cumprir uma função: provar que a tese é verificável.</p></div>
+        <div class="ps-cell"><p class="ps-hook">"Cresci ao lado de uma boca de fumo em Ponte Nova. O que me separou daquele caminho foi uma única escolha que até hoje refaço todos os dias"</p></div>
+      </div>
+    </div>
+
+    <!-- WEEKLY CALENDAR -->
+    <div class="reveal" style="margin-top:4rem;">
+      <span class="stag" style="margin-bottom:1.5rem;">Calendário semanal modelo</span>
+      <div class="cal-grid">
+        <div class="cal-header">Seg</div>
+        <div class="cal-header">Ter</div>
+        <div class="cal-header">Qua</div>
+        <div class="cal-header">Qui</div>
+        <div class="cal-header">Sex</div>
+        <div class="cal-header">Sáb</div>
+        <div class="cal-header">Dom</div>
+
+        <div class="cal-cell">
+          <p class="cal-cell__day">Seg</p>
+          <span class="cal-dot" style="background:#E44"></span>
+          <p class="cal-cell__type">Reels<br>Medicina</p>
+        </div>
+        <div class="cal-cell">
+          <p class="cal-cell__day">Ter</p>
+          <span class="cal-dot" style="background:#BFA06A"></span>
+          <p class="cal-cell__type">Carrossel<br>Finanças</p>
+        </div>
+        <div class="cal-cell">
+          <p class="cal-cell__day">Qua</p>
+          <span class="cal-dot" style="background:#5B8FD4"></span>
+          <p class="cal-cell__type">YouTube<br>Long-form</p>
+        </div>
+        <div class="cal-cell">
+          <p class="cal-cell__day">Qui</p>
+          <span class="cal-dot" style="background:#E44"></span>
+          <p class="cal-cell__type">Reels<br>Aprendizado</p>
+        </div>
+        <div class="cal-cell">
+          <p class="cal-cell__day">Sex</p>
+          <span class="cal-dot" style="background:#BFA06A"></span>
+          <p class="cal-cell__type">Carrossel<br>Medicina profunda</p>
+        </div>
+        <div class="cal-cell">
+          <p class="cal-cell__day">Sáb</p>
+          <span class="cal-dot" style="background:#E44"></span>
+          <p class="cal-cell__type">Reels<br>Trajetória / Dev. humano</p>
+        </div>
+        <div class="cal-cell cal-cell--empty">
+          <p class="cal-cell__day">Dom</p>
+          <p class="cal-cell__type" style="color:var(--cream-faint);">Descanso</p>
+        </div>
+
+        <div class="cal-cell" style="grid-column:1/-1; padding:1rem 1.25rem; min-height:auto;">
+          <p style="font-size:0.75rem; color:var(--cream-dim); font-weight:300;">Stories diários de processo em todos os dias ativos. YouTube Shorts derivados do long-form de quarta, publicados quinta e sábado.</p>
+        </div>
+      </div>
+      <div class="cal-legend">
+        <div class="cal-leg"><span class="cal-dot" style="background:#E44;"></span>Reels Instagram</div>
+        <div class="cal-leg"><span class="cal-dot" style="background:#BFA06A;"></span>Carrossel Instagram</div>
+        <div class="cal-leg"><span class="cal-dot" style="background:#5B8FD4;"></span>YouTube Long-form</div>
+      </div>
+    </div>
+
+    <!-- HOOKS -->
+    <div class="reveal" style="margin-top:4rem;">
+      <span class="stag" style="margin-bottom:1.5rem;">Biblioteca de hooks por plataforma</span>
+      <p class="sbody" style="margin-top:0; margin-bottom:2rem;">Hooks são a porta de entrada: a primeira frase que decide se o conteúdo é consumido ou ignorado. Os melhores hooks de Danrley derivam da sua trajetória real e do mecanismo que está ensinando.</p>
+      <div class="hooks-grid">
+        <div class="hook-card">
+          <span class="hook-card__platform">Instagram · Medicina</span>
+          <p class="hook-card__text">"A maioria dos médicos trata esse sintoma. Eu trato o motivo pelo qual o sintoma existe."</p>
+        </div>
+        <div class="hook-card">
+          <span class="hook-card__platform">Instagram · Finanças</span>
+          <p class="hook-card__text">"Fiz meu primeiro plantão com 24 anos e não sabia o que fazer com o dinheiro. Hoje ensino outros médicos o que ninguém me ensinou."</p>
+        </div>
+        <div class="hook-card">
+          <span class="hook-card__platform">YouTube · Abertura</span>
+          <p class="hook-card__text">"Esta semana li o capítulo mais perturbador que já li em medicina. Vou te mostrar por que ele mudou a forma como eu trato pacientes."</p>
+        </div>
+        <div class="hook-card">
+          <span class="hook-card__platform">Instagram · Aprendizado</span>
+          <p class="hook-card__text">"Cresci numa cidade onde estudar era uma escolha incomum. Hoje entendo que era exatamente por isso que precisava estudar mais."</p>
+        </div>
+        <div class="hook-card">
+          <span class="hook-card__platform">YouTube · Finanças</span>
+          <p class="hook-card__text">"Vou te mostrar o único conceito financeiro que, se você entender de verdade, muda todas as suas decisões de dinheiro pelo resto da vida."</p>
+        </div>
+        <div class="hook-card">
+          <span class="hook-card__platform">Instagram · Desenvolvimento</span>
+          <p class="hook-card__text">"Tem uma frase que eu digo para todo paciente que me pergunta como eu aprendo tão rápido: o cérebro que se expande nunca mais volta ao estado anterior."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- MANIFESTO -->
+<section class="manifesto-section" id="manifesto">
+  <div class="wrap--n">
+    <div class="reveal">
+      <span class="stag">Manifesto</span>
+      <h2 class="stitle" style="margin-bottom:3.5rem;">A<br><em>declaração</em></h2>
+    </div>
+    <div class="manifesto-text reveal d1">
+      <p>Existe uma mentira que circula livremente. Ela diz que aprender de verdade é para quem nasceu no lugar certo, estudou na escola certa, teve acesso às pessoas certas. Que o conhecimento profundo tem senha. Você não nasceu com ela.</p>
+      <p>Eu cresci ao lado disso. Literalmente. Perdi meu pai cedo, de forma violenta. Cresci em Ponte Nova, cidade pequena do interior de Minas, com a boca de fumo na esquina. Tinha todos os motivos que o mundo considera suficientes para não chegar onde cheguei. <strong>Não cheguei apesar disso. Cheguei através de uma única escolha, refeita todos os dias: estudar.</strong></p>
+      <p>Não por obrigação. Por prazer. Porque quando você entende algo que não entendia antes, algo se abre que não fecha mais. <strong>O cérebro que se expande nunca mais volta ao estado anterior.</strong></p>
+      <p>Medicina. Investimentos. Neurociência. Psicologia. Nutrição. Tudo que sei, fui buscar. Não porque era estratégico, porque sou curioso. Porque a realidade humana não cabe em uma especialidade, e parar de aprender parece, para mim, o desperdício mais absurdo que existe.</p>
+      <p>Você está aqui porque acredita no mesmo. Porque quer aprender com profundidade real, não com o conteúdo fabricado para algoritmo. Porque precisa de um modelo, não de inspiração, mas de prova.</p>
+      <p><strong>Eu sou a prova. E meu trabalho é estudar em público, mostrar o processo e demonstrar, campo por campo, dia após dia, que aprender muda tudo. Sempre.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- FINALE -->
+<section class="finale">
+  <div class="wrap" style="position:relative;z-index:1;">
+    <span class="finale__tag reveal">Brand Essence</span>
+    <div class="finale__text reveal d1">
+      Aprender<br><em>em público.</em>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <span class="footer__studio">Studio ONK</span>
+    <span class="footer__copy">Danrley de Freitas Coelho · Plataforma de Marca · Abril 2026</span>
+  </div>
+</footer>
+
+<script>
+// ── PARTICLES ──
+(function(){
+  const cv = document.getElementById('particles-canvas');
+  const ctx = cv.getContext('2d');
+  let W, H, pts=[];
+  function resize(){ W=cv.width=innerWidth; H=cv.height=innerHeight; }
+  resize();
+  window.addEventListener('resize', resize, {passive:true});
+
+  const N = Math.min(60, Math.floor(innerWidth*innerHeight/18000));
+  for(let i=0;i<N;i++) pts.push({
+    x: Math.random()*1200, y: Math.random()*1200,
+    vx:(Math.random()-0.5)*0.18, vy:(Math.random()-0.5)*0.18,
+    r: Math.random()*1.4+0.4, o: Math.random()*0.5+0.15
+  });
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0||p.x>W) p.vx*=-1;
+      if(p.y<0||p.y>H) p.vy*=-1;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(191,160,106,${p.o})`;
+      ctx.fill();
+    });
+    // connect nearby
+    for(let i=0;i<pts.length;i++){
+      for(let j=i+1;j<pts.length;j++){
+        const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y;
+        const d=Math.sqrt(dx*dx+dy*dy);
+        if(d<130){
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x,pts[i].y);
+          ctx.lineTo(pts[j].x,pts[j].y);
+          ctx.strokeStyle=`rgba(191,160,106,${0.06*(1-d/130)})`;
+          ctx.lineWidth=0.5;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ── SCROLL REVEAL ──
+const obs = new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); }
+  });
+}, { threshold:0.1, rootMargin:'0px 0px -50px 0px' });
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale').forEach(el=>obs.observe(el));
+
+// ── NAV ──
+const nav = document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>50),{passive:true});
+
+// ── BURGER ──
+const burger=document.getElementById('burger');
+const links=document.getElementById('nav-links');
+burger.addEventListener('click',()=>{
+  const o=burger.getAttribute('aria-expanded')==='true';
+  burger.setAttribute('aria-expanded',String(!o));
+  links.classList.toggle('open');
+});
+links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  links.classList.remove('open');
+  burger.setAttribute('aria-expanded','false');
+}));
+
+// ── PARALLAX ──
+const orb1=document.querySelector('.hero__orb1');
+const orb2=document.querySelector('.hero__orb2');
+window.addEventListener('scroll',()=>{
+  const s=scrollY;
+  if(s<innerHeight*1.5){
+    if(orb1) orb1.style.transform=`translateY(${s*0.25}px)`;
+    if(orb2) orb2.style.transform=`translateY(${s*0.15}px)`;
+  }
+},{passive:true});
+
+// ── COUNTERS ──
+function animCounter(el, target, duration=1400){
+  const start = performance.now();
+  const suffix = el.textContent.replace(/\d/g,'').trim();
+  function step(now){
+    const p = Math.min((now-start)/duration,1);
+    const ease = 1-Math.pow(1-p,3);
+    el.textContent = Math.round(ease*target);
+    if(p<1) requestAnimationFrame(step);
+    else el.textContent = target;
+  }
+  requestAnimationFrame(step);
+}
+const ctObs = new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      animCounter(e.target, parseInt(e.target.dataset.counter));
+      ctObs.unobserve(e.target);
+    }
+  });
+}, {threshold:0.5});
+document.querySelectorAll('[data-counter]').forEach(el=>ctObs.observe(el));
+
+// ── VOICE BARS ──
+const barObs = new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('animate'); barObs.unobserve(e.target); }
+  });
+},{threshold:0.5});
+document.querySelectorAll('.vspec__fill[data-w]').forEach(el=>barObs.observe(el));
+
+// ── TYPEWRITER on hero__essence ──
+const tw = document.getElementById('typewriter-target');
+if(tw){
+  const full = tw.textContent;
+  tw.textContent='';
+  tw.style.opacity='1';
+  setTimeout(()=>{
+    let i=0;
+    const iv=setInterval(()=>{
+      if(i<full.length){ tw.textContent+=full[i++]; }
+      else clearInterval(iv);
+    },60);
+  }, 1600);
+}
+</script>
+</body>
+</html>
