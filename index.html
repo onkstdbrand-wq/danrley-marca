@@ -677,6 +677,74 @@ hr.div { border: none; border-top: 1px solid var(--border); margin: 0; position:
 .stat-cell__n { font-family:var(--display); font-size:4rem; font-weight:600; font-style:italic; color:var(--gold); line-height:1; display:block; }
 .stat-cell__l { font-size:0.8rem; font-weight:300; color:var(--cream-dim); margin-top:0.5rem; letter-spacing:0.04em; }
 @media(max-width:600px){ .stat-row { grid-template-columns:1fr; } }
+
+/* ── MOBILE GLOBAL ── */
+.cal-scroll-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 16px; }
+.cal-scroll-wrap .cal-grid { min-width: 560px; }
+
+@media(max-width:767px){
+  /* Sections */
+  .section { padding: 4rem 0; }
+  .section--sm { padding: 2.5rem 0; }
+  .pull { padding: 3.5rem 0; }
+  .manifesto-section { padding: 4rem 0; }
+  .tp-section { padding: 3.5rem 0; }
+  .finale { padding: 6rem 0; }
+  .cerebro-banner { padding: 3rem 0; }
+
+  /* Hero */
+  .hero { padding-bottom: 4rem; }
+  .hero__scroll { display: none; }
+  .hero .wrap { padding-top: 6rem !important; }
+
+  /* Social media cards */
+  .sm-header { padding: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+  .sm-body { padding: 1.25rem; }
+  .sm-pillar { padding: 1.25rem; }
+  .sm-format { flex-direction: column; gap: 0.5rem; padding: 1rem 1.25rem; }
+  .sm-format__type { min-width: unset; }
+
+  /* Positioning */
+  .pos-stmt { padding: 1.75rem; }
+  .map-box { padding: 1.25rem; }
+
+  /* VMV */
+  .vmv__cell { padding: 2rem 1.5rem; }
+
+  /* Archetypes */
+  .arch__card { padding: 2rem; }
+  .arch__ghost { font-size: 6rem; }
+
+  /* Values */
+  .val { padding: 1.5rem; }
+
+  /* RTBs */
+  .rtb { flex-direction: column; gap: 0.5rem; padding: 1.5rem; }
+  .rtb__n { font-size: 2rem; width: auto; }
+
+  /* Audience */
+  .aud__card { padding: 1.75rem; }
+
+  /* Roadmap */
+  .rm-phase { padding: 2rem 0; gap: 0.75rem; }
+
+  /* Architecture */
+  .arch-house { padding: 2rem; }
+  .arch-house__name { font-size: 2.2rem; }
+
+  /* Moat */
+  .moat__card { padding: 2rem; }
+
+  /* Footer */
+  .footer__inner { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+
+  /* Stats */
+  .stat-cell { padding: 2rem 1.5rem; }
+
+  /* 6Cs */
+  .sixc__cell { padding: 2rem 1.5rem; }
+  .sixc__ghost { font-size: 5rem; }
+}
 </style>
 </head>
 <body>
@@ -1510,7 +1578,7 @@ hr.div { border: none; border-top: 1px solid var(--border); margin: 0; position:
     <!-- WEEKLY CALENDAR -->
     <div class="reveal" style="margin-top:4rem;">
       <span class="stag" style="margin-bottom:1.5rem;">Calendário semanal modelo</span>
-      <div class="cal-grid">
+      <div class="cal-scroll-wrap"><div class="cal-grid">
         <div class="cal-header">Seg</div>
         <div class="cal-header">Ter</div>
         <div class="cal-header">Qua</div>
@@ -1557,7 +1625,7 @@ hr.div { border: none; border-top: 1px solid var(--border); margin: 0; position:
         <div class="cal-cell" style="grid-column:1/-1; padding:1rem 1.25rem; min-height:auto;">
           <p style="font-size:0.75rem; color:var(--cream-dim); font-weight:300;">Stories diários de processo em todos os dias ativos. YouTube Shorts derivados do long-form de quarta, publicados quinta e sábado.</p>
         </div>
-      </div>
+      </div></div>
       <div class="cal-legend">
         <div class="cal-leg"><span class="cal-dot" style="background:#E44;"></span>Reels Instagram</div>
         <div class="cal-leg"><span class="cal-dot" style="background:#BFA06A;"></span>Carrossel Instagram</div>
